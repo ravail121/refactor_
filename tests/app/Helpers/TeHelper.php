@@ -47,8 +47,8 @@ class TeHelper
 
         $difference = $due_time->diffInHours($created_at);
 
-
-        if($difference <= 90)
+//it should be 1.5
+        if($difference <= 1.5)
             $time = $due_time;
         elseif ($difference <= 24) {
             $time = $created_at->addMinutes(90);

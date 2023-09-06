@@ -35,12 +35,18 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
+        //We can define the variable here rather than acessing it from request.
+        $authenticatedUser = $request->__authenticatedUser;
+
         if($user_id = $request->get('user_id')) {
 
             $response = $this->repository->getUsersJobs($user_id);
 
         }
-        elseif($request->__authenticatedUser->user_type == env('ADMIN_ROLE_ID') || $request->__authenticatedUser->user_type == env('SUPERADMIN_ROLE_ID'))
+        /* isSuperAdmin Function can be defined in User model. And even in that we wont fetch values directly from env.
+         We'll take the values from config */
+         
+        elseif($authenticatedUser->isSuperAdmin())
         {
             $response = $this->repository->getAll($request);
         }
